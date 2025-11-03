@@ -1,0 +1,64 @@
+import React, { useState } from 'react'
+
+function FormHandling() {
+    const [register, setRegister] = useState({username:"",password:"",age:""});
+
+    const [users,setUsers] = useState([])
+
+
+
+    const inputHandler = (e) => {
+        const{name , value} = e.target;
+        setRegister((old) => ({...old,[name]: value}));
+
+    };
+
+    const registerUser = (e) => {
+        e.preventDefault();
+        setUsers((old)=> [...old,register]);
+        
+    }
+  return (
+    <div>
+      <form onSubmit={registerUser}>
+        <label >Username : </label> &nbsp;
+        <input type="text" name='username' value={register.username} onChange={inputHandler} />
+        <br /><br />
+
+        <label >Password : </label> &nbsp;
+        <input type="text" name='password' value={register.password} onChange={inputHandler} />
+        <br /><br />
+
+        
+        <label >Age : </label> &nbsp;
+        <input type="text" name='age' value={register.age} onChange={inputHandler} />
+        <br /><br />
+
+        <button type='submit'>Register</button>
+      </form>
+
+      <table border={1}>
+        <thead>
+            <tr>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            {
+                users.map((u)=>(
+                    <tr>
+                        <td>{u.username}</td>
+                        <td>{u.password}</td>
+                        <td>{u.age}</td>
+                    </tr>
+                ))
+            }
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+export default FormHandling
